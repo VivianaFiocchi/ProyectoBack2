@@ -41,25 +41,27 @@ const register = (email, password) => {
 
 const login = (email, password) => {
   return new Promise((resolve, reject) => {
-    User.findOne({ email: email }, (error, user) => {
+    User.findOne({ email }, (error, user) => {
       if (error) {
         reject({
           status: 500,
-          messsage: `Se produjo un error al registrar loguear el usuario. ${error}`,
+          messsage: `Se produjo un error al loguear el usuario. ${error}`,
         });
       }
+
       if (!user || !password || !user.comparePassword(password)) {
         reject({
           status: 404,
           messsage: 'El Usuario no existe o la Clave es incorrecta.',
         });
       }
-
-      resolve({
-        status: 200,
-        token: authService.createToken(user),
-        messsage: `El Usuario: ${user.email}  se ha logueado correctamente.`,
-      });
+      if (user) {
+        resolve({
+          status: 200,
+          token: authService.createToken(user),
+          messsage: `El Usuario: ${user.email}  se ha logueado correctamente.`,
+        });
+      }
     });
   });
 };
