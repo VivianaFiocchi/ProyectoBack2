@@ -4,7 +4,7 @@ const listSeries = () => {
   return new Promise((resolve, reject) => {
     Series.find(
       {},
-      { title: 1, category: 1, image: 1, cartegory: 1 },
+      { title: 1, description:1 , category: 1, image: 1, cartegory: 1 },
       (error, series) => {
         if (error) {
           reject({
@@ -21,6 +21,7 @@ const listSeries = () => {
     );
   });
 };
+
 
 const createSeries = (title, description, image, category) => {
   return new Promise((resolve, reject) => {
@@ -39,7 +40,34 @@ const createSeries = (title, description, image, category) => {
   });
 };
 
+const updateSeries = (id, title, description, image, category) => {
+  return new Promise((resolve, reject) => {
+      Series.findByIdAndUpdate({ _id: id }, { title, description, image, category }, (err, result) => {
+          if(err){
+              reject(err);
+          }
+          resolve();
+      });
+  });
+}
+
+const deleteSeries = (id) => {
+  return new Promise((resolve, reject) => {
+      Series.findByIdAndRemove(id, (err, result) => {
+          if(err){
+              reject(err);
+          } else if (!result){
+              reject("El ID ingresado no existe.");
+          }
+          resolve(result);
+      });
+  });
+}
+
+
 module.exports = {
   listSeries,
   createSeries,
+  updateSeries,
+  deleteSeries,
 };
