@@ -64,9 +64,23 @@ const updateEpisode = async (req, res) => {
   }
 };
 
+const deleteEpisode = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deleteEpisode = await episodeService.deleteEpisode(id);
+    res.status(200).send({
+      message: 'El episodio ha sido eliminado correctamente ',
+      deleteEpisode,
+    });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
 module.exports = {
   createEpisode,
   listEpisodes,
   oneEpisode,
   updateEpisode,
+  deleteEpisode,
 };

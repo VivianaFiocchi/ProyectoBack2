@@ -28,6 +28,7 @@ api.get('/:title', episodeController.listEpisodes);
 api.get('/:title/:episodeId', episodeController.oneEpisode);
 api.post('/episodes', episodeController.createEpisode);
 api.patch('/episodes/:id', episodeController.updateEpisode);
+api.delete('/episodes/:id', episodeController.deleteEpisode);
 
 /** END ROUTES **/
 

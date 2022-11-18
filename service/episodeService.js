@@ -118,9 +118,44 @@ const updateEpisode = (id, title, description, video) => {
   });
 };
 
+const deleteEpisode = (id) => {
+  return new Promise((resolve, reject) => {
+    Episodes.findByIdAndDelete(id, (error, result) => {
+      if (error) {
+        reject(error);
+      } else if (!result) {
+        reject('El episodio no existe.');
+      }
+      Series.findById(result.serie, (error, serie) => {
+        if (error) {
+          reject({ status: 400, message: 'ID erroneo' });
+        }
+        if (!serie) {
+          reject({
+            status: 404,
+            message: 'La serie no existe',
+          });
+        }
+
+        let deletedEpisode = serie.capList.find(
+          (element) => String(element) === id
+        );
+
+        if (deletedEpisode) {
+          serie.capList.pull(deletedEpisode);
+          serie.save();
+        }
+      });
+
+      resolve(result);
+    });
+  });
+};
+
 module.exports = {
   createEpisode,
   listEpisodes,
   oneEpisode,
   updateEpisode,
+  deleteEpisode,
 };
