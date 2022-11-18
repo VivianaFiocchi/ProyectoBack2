@@ -103,8 +103,24 @@ const createEpisode = (title, description, video, serieId) => {
   });
 };
 
+const updateEpisode = (id, title, description, video) => {
+  return new Promise((resolve, reject) => {
+    Episodes.findByIdAndUpdate(
+      { _id: id },
+      { title, description, video },
+      (error, result) => {
+        if (error) {
+          reject(error);
+        }
+        resolve();
+      }
+    );
+  });
+};
+
 module.exports = {
   createEpisode,
   listEpisodes,
   oneEpisode,
+  updateEpisode,
 };

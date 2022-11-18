@@ -45,8 +45,28 @@ const createEpisode = async (req, res) => {
   }
 };
 
+const updateEpisode = async (req, res) => {
+  const { id } = req.params;
+  const { title, description, video } = req.body;
+  try {
+    const updatedEpisode = await episodeService.updateEpisode(
+      id,
+      title,
+      description,
+      video
+    );
+    res.status(201).send({
+      message: 'El episodio ha sido actualizado correctamente ',
+      updatedEpisode,
+    });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
 module.exports = {
   createEpisode,
   listEpisodes,
   oneEpisode,
+  updateEpisode,
 };
