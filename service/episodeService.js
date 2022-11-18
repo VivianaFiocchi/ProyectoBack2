@@ -34,6 +34,39 @@ const listEpisodes = (title) => {
   });
 };
 
+const oneEpisode = (title, episodeId) => {
+  return new Promise((resolve, reject) => {
+    Series.findOne({ title: title }, (error, serie) => {
+      if (error) {
+        reject({
+          status: 500,
+          messsage: `Se produjo un error al buscar la serie. ${error}`,
+        });
+      }
+      if (!serie) {
+        reject({
+          status: 500,
+          messsage: `La serie ${title} no se encuentra en la base de datos.`,
+        });
+      } else {
+        Episodes.findById({ _id: episodeId }, (error, episode) => {
+          if (error) {
+            reject({
+              status: 404,
+              message: 'Datos no encontrados',
+            });
+          } else {
+            resolve({
+              status: 200,
+              message: episode,
+            });
+          }
+        });
+      }
+    });
+  });
+};
+
 const createEpisode = (title, description, video, serieId) => {
   return new Promise((resolve, reject) => {
     Series.findById(serieId, (error, serie) => {
@@ -58,8 +91,6 @@ const createEpisode = (title, description, video, serieId) => {
             serie: serieId,
           });
 
-          console.log(newEpisode);
-
           newEpisode.save(() => {
             resolve(newEpisode);
           });
@@ -75,4 +106,5 @@ const createEpisode = (title, description, video, serieId) => {
 module.exports = {
   createEpisode,
   listEpisodes,
+  oneEpisode,
 };

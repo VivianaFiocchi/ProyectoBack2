@@ -13,6 +13,19 @@ const listEpisodes = async (req, res) => {
   }
 };
 
+const oneEpisode = async (req, res) => {
+  try {
+    const { title, episodeId } = req.params;
+
+    const result = await episodeService
+      .oneEpisode(title, episodeId)
+      .catch((error) => error);
+    res.status(result.status).send({ result });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
 const createEpisode = async (req, res) => {
   try {
     const { title, description, video, serie } = req.body;
@@ -35,4 +48,5 @@ const createEpisode = async (req, res) => {
 module.exports = {
   createEpisode,
   listEpisodes,
+  oneEpisode,
 };
