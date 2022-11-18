@@ -1,6 +1,39 @@
 const Episodes = require('../models/episodes');
 const Series = require('../models/series');
 
+const listEpisodes = (title) => {
+  return new Promise((resolve, reject) => {
+    Series.findOne({ title: title }, (error, serie) => {
+      if (error) {
+        reject({
+          status: 500,
+          messsage: `Se produjo un error al buscar la serie. ${error}`,
+        });
+      }
+      if (!serie) {
+        reject({
+          status: 500,
+          messsage: `La serie ${title} no se encuentra en la base de datos.`,
+        });
+      } else {
+        Episodes.find({ serie: String(serie._id) }, (error, episodes) => {
+          if (error) {
+            reject({
+              status: 404,
+              message: 'Datos no encontrados',
+            });
+          } else {
+            resolve({
+              status: 200,
+              message: episodes,
+            });
+          }
+        });
+      }
+    });
+  });
+};
+
 const createEpisode = (title, description, video, serieId) => {
   return new Promise((resolve, reject) => {
     Series.findById(serieId, (error, serie) => {
@@ -41,4 +74,5 @@ const createEpisode = (title, description, video, serieId) => {
 
 module.exports = {
   createEpisode,
+  listEpisodes,
 };

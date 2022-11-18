@@ -1,14 +1,27 @@
 const { episodeService } = require('../service');
 
+const listEpisodes = async (req, res) => {
+  try {
+    const { title } = req.params;
+
+    const result = await episodeService
+      .listEpisodes(title)
+      .catch((error) => error);
+    res.status(result.status).send({ result });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
 const createEpisode = async (req, res) => {
   try {
-    const { title, description, video, serieId } = req.body;
+    const { title, description, video, serie } = req.body;
 
     const newEpisode = await episodeService.createEpisode(
       title,
       description,
       video,
-      serieId
+      serie
     );
     res.status(200).send({
       message: 'El episodio ha sido creado correctamente ',
@@ -21,4 +34,5 @@ const createEpisode = async (req, res) => {
 
 module.exports = {
   createEpisode,
+  listEpisodes,
 };

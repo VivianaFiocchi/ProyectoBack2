@@ -23,6 +23,7 @@ api.post('/series', seriesController.createSeries);
 api.patch('/series/:id', seriesController.updateSeries);
 api.delete('/series/:id', seriesController.deleteSeries);
 // episodes routes
+api.get('/:title', episodeController.listEpisodes);
 api.post('/episodes', episodeController.createEpisode);
 
 /** END ROUTES **/
