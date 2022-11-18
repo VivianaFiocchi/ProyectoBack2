@@ -19,6 +19,7 @@ api.post('/login', userController.login);
 api.post('/register', userValidation, userController.register);
 // series routes
 api.get('/series', seriesController.listSeries);
+api.get('/series/:id', seriesController.detailSeries);
 api.post('/series', seriesController.createSeries);
 api.patch('/series/:id', seriesController.updateSeries);
 api.delete('/series/:id', seriesController.deleteSeries);
