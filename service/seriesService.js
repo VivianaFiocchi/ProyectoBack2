@@ -91,12 +91,21 @@ const updateSeries = (id, title, description, image, category) => {
 
 const deleteSeries = (id) => {
   return new Promise((resolve, reject) => {
-    Series.findByIdAndRemove(id, (err, result) => {
+    Series.findByIdAndDelete(id, (err, result) => {
       if (err) {
         reject(err);
       } else if (!result) {
         reject('El ID ingresado no existe.');
       }
+      result.capList.map((e) => {
+        Episodes.findByIdAndDelete(String(e), (err, result) => {
+          if (err) {
+            reject(err);
+          } else if (!result) {
+            reject('El ID ingresado no existe.');
+          }
+        });
+      });
       resolve(result);
     });
   });
