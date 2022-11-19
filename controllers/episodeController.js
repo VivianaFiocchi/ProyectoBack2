@@ -1,4 +1,5 @@
 const { episodeService } = require('../service');
+const { validationResult } = require('express-validator');
 
 const listEpisodes = async (req, res) => {
   try {
@@ -28,7 +29,14 @@ const oneEpisode = async (req, res) => {
 
 const createEpisode = async (req, res) => {
   try {
+    const resultValidationReq = validationResult(req);
+    const hasError = !resultValidationReq.isEmpty();
     const { title, description, video, serie } = req.body;
+
+    if (hasError) {
+      return res.status(400).send(resultValidationReq);
+    }
+    
 
     const newEpisode = await episodeService.createEpisode(
       title,

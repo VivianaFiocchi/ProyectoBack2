@@ -10,7 +10,9 @@ const {
   episodeController,
 } = require('../controllers');
 
-const { userValidation } = require('../controllers/validation');
+// Validations
+
+const { userValidation , seriesValidation, episodesValidation} = require('../controllers/validation');
 
 /** BEGIN ROUTES **/
 
@@ -20,13 +22,13 @@ api.post('/register', userValidation, userController.register);
 // series routes
 api.get('/series', seriesController.listSeries);
 api.get('/series/:id', seriesController.detailSeries);
-api.post('/series', seriesController.createSeries);
+api.post('/series', seriesValidation, seriesController.createSeries);
 api.patch('/series/:id', seriesController.updateSeries);
 api.delete('/series/:id', seriesController.deleteSeries);
 // episodes routes
 api.get('/:title', episodeController.listEpisodes);
 api.get('/:title/:episodeId', episodeController.oneEpisode);
-api.post('/episodes', episodeController.createEpisode);
+api.post('/episodes', episodesValidation, episodeController.createEpisode);
 api.patch('/episodes/:id', episodeController.updateEpisode);
 api.delete('/episodes/:id', episodeController.deleteEpisode);
 
