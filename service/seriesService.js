@@ -66,6 +66,7 @@ const createSeries = (title, description, image, category) => {
       if (serie) {
         reject('La serie ya existe');
       }
+   
       const newSerie = new Series({ title, description, image, category });
       newSerie.save(() => {
         resolve(newSerie);
