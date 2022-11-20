@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "3ef15c66-66b7-491e-ab8e-320ca3c55c04",
+		"_postman_id": "ca60518c-91de-444a-8440-69a5e9b1054e",
 		"name": "TP 2 BACK",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "23899050"
+		"_exporter_id": "23770121"
 	},
 	"item": [
 		{
@@ -294,6 +294,168 @@
 							"path": [
 								"api",
 								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AGREGAR SERIE 1 A FAVORITOS",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"favoriteSerie\":\"637a91cd3f7d310717cbe882\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/pruebauno@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"pruebauno@gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AGREGAR SERIE 2 A FAVORITOS",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"favoriteSerie\":\"637a91cf3f7d310717cbe885\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/pruebauno@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"pruebauno@gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SERIE YA GUARDADA EN FAVORITOS",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"favoriteSerie\":\"637a91cf3f7d310717cbe885\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/pruebauno@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"pruebauno@gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AGREGAR UNA SERIE INEXISTENTE A USUARIO",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"favoriteSerie\":\"637a91cf3f7d310717cbefff\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/pruebauno@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"pruebauno@gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LISTA FAVORITOS USUARIO",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/users/pruebauno@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"pruebauno@gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LISTA FAVORITOS DE USUARIO NO EXISTENTE",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/users/noSoyUnUsuario@No.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"noSoyUnUsuario@No.com"
 							]
 						}
 					},

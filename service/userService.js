@@ -132,7 +132,7 @@ const listFavorites = (email) => {
       } else {
         Series.find(
           { users: String(user._id) },
-          { title: 1, _id: 0 },
+          { title: 1, description: 1, image: 1, category: 1 },
           (error, result) => {
             if (error) {
               reject({
