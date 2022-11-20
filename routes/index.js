@@ -15,6 +15,7 @@ const {
   userValidation,
   seriesValidation,
   episodesValidation,
+  favoriteValidation,
 } = require('../middlewares');
 
 /** BEGIN ROUTES **/
@@ -22,7 +23,7 @@ const {
 // User routes
 api.post('/login', userController.login);
 api.post('/register', userValidation, userController.register);
-api.patch('/users/:email', userController.favorites);
+api.patch('/users/:email', favoriteValidation, userController.favorites);
 api.get('/users/:email', userController.listFavorites);
 
 // Series routes

@@ -37,8 +37,14 @@ const login = async (req, res) => {
 
 const favorites = async (req, res) => {
   try {
+    const resultValidationReq = validationResult(req);
+    const hasError = !resultValidationReq.isEmpty();
     const { email } = req.params;
     const { favoriteSerie } = req.body;
+
+    if (hasError) {
+      return res.status(400).send(resultValidationReq);
+    }
 
     const result = await userService
       .favorite(email, favoriteSerie)
