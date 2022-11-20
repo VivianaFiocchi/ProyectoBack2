@@ -10,22 +10,29 @@ const {
   episodeController,
 } = require('../controllers');
 
-// Validations
-
-const { userValidation , seriesValidation, episodesValidation} = require('../controllers/validation');
+/* Middlewares */
+const {
+  userValidation,
+  seriesValidation,
+  episodesValidation,
+} = require('../middlewares');
 
 /** BEGIN ROUTES **/
 
-// user routes
+// User routes
 api.post('/login', userController.login);
 api.post('/register', userValidation, userController.register);
-// series routes
+api.patch('/users/:email', userController.favorites);
+api.get('/users/:email', userController.listFavorites);
+
+// Series routes
 api.get('/series', seriesController.listSeries);
 api.get('/series/:id', seriesController.detailSeries);
 api.post('/series', seriesValidation, seriesController.createSeries);
 api.patch('/series/:id', seriesController.updateSeries);
 api.delete('/series/:id', seriesController.deleteSeries);
-// episodes routes
+
+// Episodes routes
 api.get('/:title', episodeController.listEpisodes);
 api.get('/:title/:episodeId', episodeController.oneEpisode);
 api.post('/episodes', episodesValidation, episodeController.createEpisode);

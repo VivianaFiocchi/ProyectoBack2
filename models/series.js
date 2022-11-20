@@ -9,6 +9,7 @@ const SeriesSchema = new Schema({
   image: { type: String, required: true },
   category: { type: String, lowercase: true, required: true },
   capList: [{ type: Schema.Types.ObjectId, ref: 'Capitulos' }],
+  users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
 });
 
 module.exports = mongoose.model('Series', SeriesSchema);

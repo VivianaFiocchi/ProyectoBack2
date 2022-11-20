@@ -35,7 +35,37 @@ const login = async (req, res) => {
   }
 };
 
+const favorites = async (req, res) => {
+  try {
+    const { email } = req.params;
+    const { favoriteSerie } = req.body;
+
+    const result = await userService
+      .favorite(email, favoriteSerie)
+      .catch((error) => error);
+
+    res.status(result.status).send(result);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+const listFavorites = async (req, res) => {
+  try {
+    const { email } = req.params;
+
+    const result = await userService
+      .listFavorites(email)
+      .catch((error) => error);
+    res.status(result.status).send({ result });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
 module.exports = {
   register,
   login,
+  favorites,
+  listFavorites,
 };
