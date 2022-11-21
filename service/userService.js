@@ -71,7 +71,7 @@ const favorite = (email, favoriteSerie) => {
   return new Promise((resolve, reject) => {
     User.findOne({ email: email }, (error, user) => {
       if (error) {
-        reject({ status: 400, message:`Se produjo un error: ${error}`});
+        reject({ status: 400, message: `Se produjo un error: ${error}` });
       }
       if (!user) {
         reject({
@@ -153,7 +153,6 @@ const listFavorites = (email) => {
   });
 };
 
-
 const deleteFavorite = (email, favoriteSerie) => {
   return new Promise((resolve, reject) => {
     User.findOne({ email: email }, (error, user) => {
@@ -173,7 +172,7 @@ const deleteFavorite = (email, favoriteSerie) => {
           if (!serie) {
             reject({
               status: 404,
-              message: 'La serie no existe',
+              message: `La serie no se encuentra en la lista de favoritos de ${user.email}.`,
             });
           }
           if (serie) {
@@ -190,10 +189,10 @@ const deleteFavorite = (email, favoriteSerie) => {
                 message: `La serie ha sido eliminada de la lista de favoritos del usuario ${user.email}`,
               });
             } else {
-              reject ({
-                  status: 400,
-                  message: `La serie no se encuentra en la lista de favoritos del usuario ${user.email}`,
-              }) 
+              reject({
+                status: 400,
+                message: `La serie no se encuentra en la lista de favoritos del usuario ${user.email}`,
+              });
             }
           }
         });
@@ -201,7 +200,6 @@ const deleteFavorite = (email, favoriteSerie) => {
     });
   });
 };
-
 
 module.exports = {
   register,
