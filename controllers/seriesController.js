@@ -29,7 +29,7 @@ const createSeries = async (req, res) => {
     if (hasError) {
       return res.status(400).send(resultValidationReq);
     }
- 
+
     const newSerie = await seriesService.createSeries(
       title,
       description,

@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const EpisodesSchema = new Schema({
@@ -7,8 +7,8 @@ const EpisodesSchema = new Schema({
   video: { type: String, required: true },
   serie: {
     type: Schema.Types.ObjectId,
-    ref: "Series",
+    ref: 'Series',
   },
 });
 
-module.exports = mongoose.model("Episodes", EpisodesSchema);
+module.exports = mongoose.model('Episodes', EpisodesSchema);

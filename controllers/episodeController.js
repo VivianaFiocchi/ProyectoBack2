@@ -36,7 +36,6 @@ const createEpisode = async (req, res) => {
     if (hasError) {
       return res.status(400).send(resultValidationReq);
     }
-    
 
     const newEpisode = await episodeService.createEpisode(
       title,

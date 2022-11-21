@@ -1,11 +1,12 @@
 const Series = require('../models/series');
 const Episodes = require('../models/episodes');
+const User = require('../models/user');
 
 const listSeries = () => {
   return new Promise((resolve, reject) => {
     Series.find(
       {},
-      { title: 1, description: 1, category: 1, image: 1, cartegory: 1 },
+      { title: 1, description: 1, category: 1, image: 1 },
       (error, series) => {
         if (error) {
           reject({
@@ -66,7 +67,7 @@ const createSeries = (title, description, image, category) => {
       if (serie) {
         reject('La serie ya existe');
       }
-   
+
       const newSerie = new Series({ title, description, image, category });
       newSerie.save(() => {
         resolve(newSerie);
@@ -107,6 +108,7 @@ const deleteSeries = (id) => {
           }
         });
       });
+
       resolve(result);
     });
   });
