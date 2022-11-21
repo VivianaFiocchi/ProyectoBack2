@@ -69,9 +69,36 @@ const listFavorites = async (req, res) => {
   }
 };
 
+const deleteFavorite = async (req, res) => {
+  try {
+    const resultValidationReq = validationResult(req);
+    const hasError = !resultValidationReq.isEmpty();
+    const { email } = req.params;
+    const { favoriteSerie } = req.body;
+
+    if (hasError) {
+      return res.status(400).send(resultValidationReq);
+    }
+
+    const result = await userService
+      .deleteFavorite(email, favoriteSerie)
+      .catch((error) => error);
+
+    res.status(result.status).send(result);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+
+
+
+
+
 module.exports = {
   register,
   login,
   favorites,
   listFavorites,
+  deleteFavorite,
 };

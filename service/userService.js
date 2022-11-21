@@ -71,7 +71,7 @@ const favorite = (email, favoriteSerie) => {
   return new Promise((resolve, reject) => {
     User.findOne({ email: email }, (error, user) => {
       if (error) {
-        reject({ status: 400, message: 'ID erroneo' });
+        reject({ status: 400, message:`Se produjo un error: ${error}`});
       }
       if (!user) {
         reject({
@@ -153,9 +153,60 @@ const listFavorites = (email) => {
   });
 };
 
+
+const deleteFavorite = (email, favoriteSerie) => {
+  return new Promise((resolve, reject) => {
+    User.findOne({ email: email }, (error, user) => {
+      if (error) {
+        reject({ status: 400, message: 'ID erroneo' });
+      }
+      if (!user) {
+        reject({
+          status: 404,
+          message: 'El usuario no existe',
+        });
+      } else {
+        Series.findById(favoriteSerie, (error, serie) => {
+          if (error) {
+            reject({ status: 400, message: 'ID erroneo' });
+          }
+          if (!serie) {
+            reject({
+              status: 404,
+              message: 'La serie no existe',
+            });
+          }
+          if (serie) {
+            let isFavorite = user.favorites.some(
+              (e) => String(e) === favoriteSerie
+            );
+            if (isFavorite) {
+              user.favorites.pull(favoriteSerie);
+              user.save();
+              serie.users.pull(user._id);
+              serie.save();
+              resolve({
+                status: 200,
+                message: `La serie ha sido eliminada de la lista de favoritos del usuario ${user.email}`,
+              });
+            } else {
+              reject ({
+                  status: 400,
+                  message: `La serie no se encuentra en la lista de favoritos del usuario ${user.email}`,
+              }) 
+            }
+          }
+        });
+      }
+    });
+  });
+};
+
+
 module.exports = {
   register,
   login,
   favorite,
   listFavorites,
+  deleteFavorite,
 };

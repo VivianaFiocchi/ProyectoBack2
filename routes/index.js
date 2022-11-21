@@ -25,6 +25,7 @@ api.post('/login', userController.login);
 api.post('/register', userValidation, userController.register);
 api.patch('/users/:email', favoriteValidation, userController.favorites);
 api.get('/users/:email', userController.listFavorites);
+api.delete('/users/:email', favoriteValidation, userController.deleteFavorite);
 
 // Series routes
 api.get('/series', seriesController.listSeries);
